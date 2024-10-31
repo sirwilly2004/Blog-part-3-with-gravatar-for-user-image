@@ -1,0 +1,90 @@
+
+<style>
+    .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.search-heading {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.search-results {
+    margin-top: 20px;
+}
+
+.post-preview {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.post-preview:hover {
+    background-color: #f0f0f0;
+}
+
+.post-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.post-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.post-title:hover {
+    color: #0056b3;
+}
+
+.post-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.post-divider {
+    border-top: 1px solid #ddd;
+}
+
+.no-results {
+    font-size: 1.2rem;
+    color: #999;
+    text-align: center;
+    margin-top: 50px;
+}
+
+</style>
+<div class="container">
+    <h1 class="search-heading">Search Results for "{{ query }}"</h1>
+    {% if results %}
+        <div class="search-results">
+            {% for post in results %}
+                <div class="post-preview">
+                    <a href="{{ url_for('show_post', post_id=post.id) }}" class="post-link">
+                        <h2 class="post-title">{{ post.title }}</h2>
+                        <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                    </a>
+                    <p class="post-meta">Posted by {{ post.author.name }} on {{ post.date.strftime('%B %d, %Y') }}</p>
+                </div>
+                <hr class="post-divider">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-results">No results found.</p>
+    {% endif %}
+</div>
+
